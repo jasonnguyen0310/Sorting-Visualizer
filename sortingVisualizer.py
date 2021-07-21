@@ -1,6 +1,14 @@
+'''
+sortingVisualizer,py
+Aythor : Jason Nguyen
+module contains sortingVisualizer class
+'''
+
+
 from tkinter import *
 from tkinter import ttk
 import random
+from sorting import insertionSort
 
 
 class SortingVisualizer:
@@ -9,32 +17,50 @@ class SortingVisualizer:
         self.root = Tk()
         # current sorting algorithm
         self.sorter = StringVar()
+        # global data array
+        self.data = []
 
     def popupmsg(self, msg):
         popup = Tk()
+
+        # Gets the request values of the height and width.
+        windowWidth = popup.winfo_reqwidth()
+        windowHeight = popup.winfo_reqheight()
+
+        # Gets both half of the screen width/height and window width/height
+        positionRight = int(popup.winfo_screenwidth()/2 - windowWidth/2)
+        positionDown = int(popup.winfo_screenheight()/2 - windowHeight/2)
+
+
+        # positions the window in the center of the page
+        popup.geometry("+{}+{}".format(positionRight, positionDown))
+
+
         popup.wm_title("Error")
         label = ttk.Label(popup, text=msg)
         label.pack(side="top", fill="x", pady=10)
         B1 = ttk.Button(popup, text="Okay", command = popup.destroy)
+        popup.grab_set()
         B1.pack()
         popup.mainloop()
+        popup.grab_release()
 
 
     # Draw Data
-    def drawData(self, canvas, arr):
+    def drawData(self, canvas, data, colorArray):
         canvas.delete("all")
         # Canvas Height
-        c_height = 380
+        c_height = 525
         # Canvas Width
-        c_width = 600
+        c_width = 1500
         # Width of the bar graphs
-        x_width = c_width / (len(arr) + 1)
+        x_width = c_width / (len(data) + 4)
         # offset
         offset = 30
         # spacing
         spacing = 10
         # normalize data
-        normalizedData = [ i / max(arr) for i in arr]
+        normalizedData = [ i / max(self.data) for i in data]
         for i, height in enumerate(normalizedData):
             # top left
             x0 = i * x_width + offset + spacing
@@ -44,19 +70,24 @@ class SortingVisualizer:
             y1 = c_height
 
             # draw rectangle
-            canvas.create_rectangle(x0, y0, x1, y1, fill="red")
+            canvas.create_rectangle(x0, y0, x1, y1, fill=colorArray[i])
             # display text
-            canvas.create_text(x0+2, y0, anchor=SW, text=str(arr[i]))
+            canvas.create_text(x0+2, y0, anchor=SW, text=str(data[i]))
 
+        self.root.update()
+
+
+    def startAlgorithm(self, canvas, speedScale):
+        insertionSort(self.data, lambda x, y: self.drawData(canvas, x, y), speedScale.get())
 
     # Generate New Array
     def generateNewArray(self, canvas, sizeEntry, minEntry, maxEntry):
-
+        # clears global data array
+        self.data.clear()
         try:
             # size of Array
             size = int(sizeEntry.get())
         except:
-            size = 10
             self.popupmsg("Must enter input for Size")
             
         try:
@@ -69,28 +100,25 @@ class SortingVisualizer:
             # maxVal of Array
             maxVal = int(maxEntry.get())
         except:
-            maxVal = 10
             self.popupmsg("Must enter input for maxVal")
 
 
         if minVal > maxVal:
             self.popupmsg("Minimum Value has to be least than Maximum Value")
             return
+    
 
-        if size > 30:
-            self.popupmsg("Size cannot be greater than 30 given default dimensions")
-            return
 
         # empty dataset
-        data = []
+        self.data = []
 
         # loop through appending random integers to array
         for i in range(size):
-            data.append(random.randrange(minVal, maxVal+1))
+            self.data.append(random.randrange(minVal, maxVal+1))
 
 
         # draw bar graphs
-        self.drawData(canvas,data)
+        self.drawData(canvas, self.data, ['red' for x in range(len(self.data))])
 
 
     # Run Tkinter GUI
@@ -98,40 +126,48 @@ class SortingVisualizer:
         # set title for Tkinter GUI
         self.root.title('Sorting Algorithm Visualizer')
         # set size for Tkinter GUI
-        self.root.maxsize(900, 600)
+        self.root.maxsize(1920, 1080)
         # set background  color
         self.root.config(bg='black')
 
         # frame  / base layout
-        UI_frame =  Frame(self.root, width=600, height=200, bg='grey')
-        UI_frame.grid(row=0, column=0, padx=10, pady=5)
+        UI_frame =  Frame(self.root, width=1500, height=510, bg='grey')
+        UI_frame.grid(row=0, column=0, padx=5, pady=5, sticky=W)
 
-        canvas = Canvas(self.root, width=600, height=380, bg='white')
-        canvas.grid(row=1, column=0, padx=10, pady=5)
+
+        canvas = Canvas(self.root, width=1500, height=525, bg='white')
+        canvas.grid(row=1, column=0, padx=5, pady=5)
 
         # User Interface Area
-        # Row[0]
-        Label(UI_frame, text="Algorithm: ", bg="grey").grid(row=0, column=0, padx=5, pady=5, sticky=W)
+        # Row 1 (Algorithm)
+        Label(UI_frame, text="Algorithm: ", bg="grey").grid(row=1, column=0, padx=5, pady=5, sticky=W)
         algMenu = ttk.Combobox(UI_frame, textvariable=self.sorter, values=["Insertion Sort", "Selection Sort", "Quicksort", "Merge Sort"], state="readonly")
-        algMenu.grid(row=0, column=1, padx=5, pady=5)
+        algMenu.grid(row=1, column=1, padx=5, pady=5)
         # Default sorter is "Insertion Sort"
         algMenu.current(0)
         
-        # Row[1]
-        Label(UI_frame, text="Size: ", bg="grey").grid(row=1, column=0, padx=5, pady=5, sticky=W)
+        speedScale = Scale(UI_frame, from_=0.1, to=2.0, length=200, digits=2, resolution=0.25, orient=HORIZONTAL, label="Delay [sec]")
+        speedScale.grid(row=1, column=2, padx=5, pady=5)
+        ttk.Button(UI_frame, text="Sort", command=lambda: self.startAlgorithm(canvas, speedScale)).grid(row=1, column=3, padx=5, pady=5)
+
+        # Row 0 (Generating a random array of size n integers)
+        Label(UI_frame, text="Size: ", bg="grey").grid(row=0, column=0, padx=5, pady=5, sticky=W)
         sizeEntry= Entry(UI_frame)
-        sizeEntry.grid(row=1, column=1, padx=5, pady=5, sticky=W)
+        sizeEntry.insert(0, 10)
+        sizeEntry.grid(row=0, column=1, padx=5, pady=5, sticky=W)
         
 
-        Label(UI_frame, text="Min Value: ", bg="grey").grid(row=1, column=2, padx=5, pady=5, sticky=W)
+        Label(UI_frame, text="Min. Value in Array: ", bg="grey").grid(row=0, column=2, padx=5, pady=5, sticky=W)
         minEntry= Entry(UI_frame)
-        minEntry.grid(row=1, column=3, padx=5, pady=5, sticky=W)
+        minEntry.insert(0, 0)
+        minEntry.grid(row=0, column=3, padx=5, pady=5, sticky=W)
         
 
-        Label(UI_frame, text="Max Value: ", bg="grey").grid(row=1, column=4, padx=5, pady=5, sticky=W)
+        Label(UI_frame, text="Max. Value in Array: ", bg="grey").grid(row=0, column=4, padx=5, pady=5, sticky=W)
         maxEntry= Entry(UI_frame)
-        maxEntry.grid(row=1, column=5, padx=5, pady=5, sticky=W)
+        maxEntry.insert(0, 100)
+        maxEntry.grid(row=0, column=5, padx=5, pady=5, sticky=W)
         
-        ttk.Button(UI_frame, text="Generate New Array", command=lambda: self.generateNewArray(canvas, sizeEntry, minEntry, maxEntry)).grid(row=0, column=2, padx=5, pady=5)
+        ttk.Button(UI_frame, text="Generate New Array", command=lambda: self.generateNewArray(canvas, sizeEntry, minEntry, maxEntry)).grid(row=0, column=6, padx=10, pady=10)
 
         self.root.mainloop()

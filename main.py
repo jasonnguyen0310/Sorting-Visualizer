@@ -1,3 +1,9 @@
+'''
+main.py
+Author: Jason Nguyen
+module contains main function to run program
+'''
+
 import sortingVisualizer as sv
 
 

@@ -77,8 +77,11 @@ class SortingVisualizer:
         self.root.update()
 
 
-    def startAlgorithm(self, canvas, speedScale):
-        insertionSort(self.data, lambda x, y: self.drawData(canvas, x, y), speedScale.get())
+    def startAlgorithm(self, canvas, speedScale, sorter):
+        if sorter == "Insertion Sort":
+            insertionSort(self.data, lambda x, y: self.drawData(canvas, x, y), speedScale.get())
+        else:
+            print("yay")
 
     # Generate New Array
     def generateNewArray(self, canvas, sizeEntry, minEntry, maxEntry):
@@ -148,7 +151,7 @@ class SortingVisualizer:
         
         speedScale = Scale(UI_frame, from_=0.1, to=2.0, length=200, digits=2, resolution=0.25, orient=HORIZONTAL, label="Delay [sec]")
         speedScale.grid(row=1, column=2, padx=5, pady=5)
-        ttk.Button(UI_frame, text="Sort", command=lambda: self.startAlgorithm(canvas, speedScale)).grid(row=1, column=3, padx=5, pady=5)
+        ttk.Button(UI_frame, text="Sort", command=lambda: self.startAlgorithm(canvas, speedScale, algMenu.get())).grid(row=1, column=3, padx=5, pady=5)
 
         # Row 0 (Generating a random array of size n integers)
         Label(UI_frame, text="Size: ", bg="grey").grid(row=0, column=0, padx=5, pady=5, sticky=W)

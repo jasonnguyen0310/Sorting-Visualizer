@@ -19,6 +19,25 @@ class SortingVisualizer:
         self.sorter = StringVar()
         # global data array
         self.data = []
+        # num of comparisons
+        self.comparisons = IntVar()
+        # time
+        self.time = DoubleVar()
+
+    def resetData(self):
+        # clears global data array
+        self.data.clear()
+        # clears comparisons
+        self.comparisons = IntVar()
+        self.comparisons.set(0)
+        # clears time
+        self.time = DoubleVar()
+        self.time.set(0.0)
+    
+    def increment_comparisons(self, UI_frame, labelComparisons):
+        self.comparisons.set(self.comparisons.get() + 1)
+        labelComparisons = Label(UI_frame, textvariable=self.comparisons, bg="grey").grid(row=2, column=1, padx=5, pady=5, sticky=W)
+        self.root.update()
 
     def popupmsg(self, msg):
         popup = Tk()
@@ -74,19 +93,22 @@ class SortingVisualizer:
             # display text
             canvas.create_text(x0+2, y0, anchor=SW, text=str(data[i]))
 
+        
         self.root.update()
 
 
-    def startAlgorithm(self, canvas, speedScale, sorter):
+    def startAlgorithm(self, canvas, UI_frame, labelComparisons, labelTime, speedScale, sorter):
         if sorter == "Insertion Sort":
-            insertionSort(self.data, lambda x, y: self.drawData(canvas, x, y), speedScale.get())
+            time = insertionSort(self.data, lambda x, y: self.drawData(canvas, x, y), lambda: self.increment_comparisons(UI_frame, labelComparisons), speedScale.get())
+            self.time.set(time)
+            labelTime = Label(UI_frame, textvariable=self.time, bg="grey").grid(row=2, column=4, padx=5, pady=5, sticky=W)
+            self.root.update()
         else:
             print("yay")
 
     # Generate New Array
-    def generateNewArray(self, canvas, sizeEntry, minEntry, maxEntry):
-        # clears global data array
-        self.data.clear()
+    def generateNewArray(self, canvas, UI_frame, labelComparisons, labelTime, sizeEntry, minEntry, maxEntry):
+        self.resetData()
         try:
             # size of Array
             size = int(sizeEntry.get())
@@ -124,6 +146,7 @@ class SortingVisualizer:
         self.drawData(canvas, self.data, ['red' for x in range(len(self.data))])
 
 
+
     # Run Tkinter GUI
     def run(self):
         # set title for Tkinter GUI
@@ -142,16 +165,24 @@ class SortingVisualizer:
         canvas.grid(row=1, column=0, padx=5, pady=5)
 
         # User Interface Area
+        # Row 2 (Number of Comparisons and Time)
+
+        Label(UI_frame, text="Number of Comparisons: ", bg="grey").grid(row=2, column=0, padx=5, pady=5, sticky=W)
+        labelComparisons = Label(UI_frame, textvariable=self.comparisons, bg="grey").grid(row=2, column=1, padx=5, pady=5, sticky=W)
+
+        Label(UI_frame, text="Time including delay (seconds): ", bg="grey").grid(row=2, column=3, padx=5, pady=5, sticky=W)
+        labelTime = Label(UI_frame, textvariable=self.time, bg="grey").grid(row=2, column=4, padx=5, pady=5, sticky=W)
+
         # Row 1 (Algorithm)
         Label(UI_frame, text="Algorithm: ", bg="grey").grid(row=1, column=0, padx=5, pady=5, sticky=W)
-        algMenu = ttk.Combobox(UI_frame, textvariable=self.sorter, values=["Insertion Sort", "Selection Sort", "Quicksort", "Merge Sort"], state="readonly")
+        algMenu = ttk.Combobox(UI_frame, textvariable=self.sorter, values=["Insertion Sort", "Selection Sort", "Quicksort", "Bubble Sort", "Merge Sort"], state="readonly")
         algMenu.grid(row=1, column=1, padx=5, pady=5)
         # Default sorter is "Insertion Sort"
         algMenu.current(0)
         
         speedScale = Scale(UI_frame, from_=0.1, to=2.0, length=200, digits=2, resolution=0.25, orient=HORIZONTAL, label="Delay [sec]")
         speedScale.grid(row=1, column=2, padx=5, pady=5)
-        ttk.Button(UI_frame, text="Sort", command=lambda: self.startAlgorithm(canvas, speedScale, algMenu.get())).grid(row=1, column=3, padx=5, pady=5)
+        ttk.Button(UI_frame, text="Sort", command=lambda: self.startAlgorithm(canvas, UI_frame, labelComparisons, labelTime, speedScale, algMenu.get())).grid(row=1, column=3, padx=5, pady=5)
 
         # Row 0 (Generating a random array of size n integers)
         Label(UI_frame, text="Size: ", bg="grey").grid(row=0, column=0, padx=5, pady=5, sticky=W)
@@ -171,6 +202,8 @@ class SortingVisualizer:
         maxEntry.insert(0, 100)
         maxEntry.grid(row=0, column=5, padx=5, pady=5, sticky=W)
         
-        ttk.Button(UI_frame, text="Generate New Array", command=lambda: self.generateNewArray(canvas, sizeEntry, minEntry, maxEntry)).grid(row=0, column=6, padx=10, pady=10)
+        ttk.Button(UI_frame, text="Generate New Array", command=lambda: self.generateNewArray(canvas, UI_frame, labelComparisons, labelTime, sizeEntry, minEntry, maxEntry)).grid(row=0, column=6, padx=10, pady=10)
+
+
 
         self.root.mainloop()

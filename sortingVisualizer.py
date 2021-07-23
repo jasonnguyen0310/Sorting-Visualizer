@@ -8,7 +8,7 @@ module contains sortingVisualizer class
 from tkinter import *
 from tkinter import ttk
 import random
-from sorting import insertionSort
+from sorting import insertionSort, selectionSort
 
 
 class SortingVisualizer:
@@ -19,10 +19,13 @@ class SortingVisualizer:
         self.sorter = StringVar()
         # global data array
         self.data = []
+        # pre-sorted data array
+        self.preSortedData = []
         # num of comparisons
         self.comparisons = IntVar()
         # time
         self.time = DoubleVar()
+
 
     def resetData(self):
         # clears global data array
@@ -33,6 +36,7 @@ class SortingVisualizer:
         # clears time
         self.time = DoubleVar()
         self.time.set(0.0)
+
     
     def increment_comparisons(self, UI_frame, labelComparisons):
         self.comparisons.set(self.comparisons.get() + 1)
@@ -96,6 +100,18 @@ class SortingVisualizer:
         
         self.root.update()
 
+    # reset the current array
+    def resetCurrentArray(self, canvas):
+        self.data = self.preSortedData.copy()
+        # clears comparisons
+        self.comparisons = IntVar()
+        self.comparisons.set(0)
+        # clears time
+        self.time = DoubleVar()
+        self.time.set(0.0)
+        # draw bar graphs
+        self.drawData(canvas, self.data, ['red' for x in range(len(self.data))])
+
 
     def startAlgorithm(self, canvas, UI_frame, labelComparisons, labelTime, speedScale, sorter):
         if sorter == "Insertion Sort":
@@ -103,8 +119,11 @@ class SortingVisualizer:
             self.time.set(time)
             labelTime = Label(UI_frame, textvariable=self.time, bg="grey").grid(row=2, column=4, padx=5, pady=5, sticky=W)
             self.root.update()
-        else:
-            print("yay")
+        elif (sorter == "Selection Sort"):
+            time = selectionSort(self.data, lambda x, y: self.drawData(canvas, x, y), lambda: self.increment_comparisons(UI_frame, labelComparisons), speedScale.get())
+            self.time.set(time)
+            labelTime = Label(UI_frame, textvariable=self.time, bg="grey").grid(row=2, column=4, padx=5, pady=5, sticky=W)
+            self.root.update()
 
     # Generate New Array
     def generateNewArray(self, canvas, UI_frame, labelComparisons, labelTime, sizeEntry, minEntry, maxEntry):
@@ -141,6 +160,8 @@ class SortingVisualizer:
         for i in range(size):
             self.data.append(random.randrange(minVal, maxVal+1))
 
+        # backup
+        self.preSortedData = self.data.copy()
 
         # draw bar graphs
         self.drawData(canvas, self.data, ['red' for x in range(len(self.data))])
@@ -175,7 +196,7 @@ class SortingVisualizer:
 
         # Row 1 (Algorithm)
         Label(UI_frame, text="Algorithm: ", bg="grey").grid(row=1, column=0, padx=5, pady=5, sticky=W)
-        algMenu = ttk.Combobox(UI_frame, textvariable=self.sorter, values=["Insertion Sort", "Selection Sort", "Quicksort", "Bubble Sort", "Merge Sort"], state="readonly")
+        algMenu = ttk.Combobox(UI_frame, textvariable=self.sorter, values=["Insertion Sort", "Selection Sort", "Quicksort", "Bubble Sort", "Merge Sort", "Heap Sort"], state="readonly")
         algMenu.grid(row=1, column=1, padx=5, pady=5)
         # Default sorter is "Insertion Sort"
         algMenu.current(0)
@@ -184,6 +205,8 @@ class SortingVisualizer:
         speedScale.grid(row=1, column=2, padx=5, pady=5)
         ttk.Button(UI_frame, text="Sort", command=lambda: self.startAlgorithm(canvas, UI_frame, labelComparisons, labelTime, speedScale, algMenu.get())).grid(row=1, column=3, padx=5, pady=5)
 
+        ttk.Button(UI_frame, text="Reset Current Array", command=lambda: self.resetCurrentArray(canvas)).grid(row=1, column=6, padx=5, pady=5)
+        
         # Row 0 (Generating a random array of size n integers)
         Label(UI_frame, text="Size: ", bg="grey").grid(row=0, column=0, padx=5, pady=5, sticky=W)
         sizeEntry= Entry(UI_frame)

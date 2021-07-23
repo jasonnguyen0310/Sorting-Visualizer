@@ -54,7 +54,8 @@ def selectionSort(arr, drawData, increment_comparisons, timeTick):
 
 
 # Quick sort
-def partition(itemFromLeft, itemFromRight, arr, drawData, increment_comparisons, timeTick):
+def partition(itemFromLeft, itemFromRight, medianIndex, arr, drawData, increment_comparisons, timeTick):
+    arr[itemFromLeft], arr[medianIndex] = arr[medianIndex], arr[itemFromLeft]
     # index of pivot
     pivot_index = itemFromLeft
     # value of pivot
@@ -83,7 +84,7 @@ def partition(itemFromLeft, itemFromRight, arr, drawData, increment_comparisons,
             drawData(arr, ['blue' if x == pivot_index else 'green' if x == itemFromLeft or x == itemFromRight else 'red' for x in range(len(arr))])
             time.sleep(timeTick)
 
-    # swap itemfromLeft with pivot
+    # swap itemfromRight with pivot
     arr[itemFromRight], arr[pivot_index] = arr[pivot_index], arr[itemFromRight]
     drawData(arr, ['blue' if x == pivot_index else 'green' if x == itemFromLeft or x == itemFromRight else 'red' for x in range(len(arr))])
     time.sleep(timeTick)
@@ -94,8 +95,13 @@ def partition(itemFromLeft, itemFromRight, arr, drawData, increment_comparisons,
 def quickSort(itemFromLeft, itemFromRight, arr, drawData, increment_comparisons, timeTick):
     startTime = time.time()
     if (itemFromLeft < itemFromRight):
-
-        p = partition(itemFromLeft, itemFromRight, arr, drawData, increment_comparisons, timeTick)
+        pivot_median = []
+        for i in range(3):
+            ind = random.randint(itemFromLeft, itemFromRight)
+            pivot_median.append(arr[ind])
+        median = statistics.median(pivot_median)
+        medianIndex = arr.index(median)
+        p = partition(itemFromLeft, itemFromRight, medianIndex, arr, drawData, increment_comparisons, timeTick)
 
         # Sort elements before partition and after partition
         quickSort(itemFromLeft, p-1, arr, drawData, increment_comparisons, timeTick)

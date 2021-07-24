@@ -31,10 +31,10 @@ For example, if we want to compare standard sorting algorithms on the basis of s
 # How to Run Locally
 **Clone the Repository**<br />
 git clone [this repo](https://github.com/jasonnguyen0310/Sorting-Visualizer.git)<br />
-..............................<br />
+........................................................................................................................<br />
 **Make sure you have Python with Tkinter installed**<br />
 pip install tk<br />
-.............................<br />
+.......................................................................................................................<br />
 **Run With Python**<br />
 python main.py<br />
-.............................<br />
+.......................................................................................................................<br />

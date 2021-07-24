@@ -29,6 +29,10 @@ For example, if we want to compare standard sorting algorithms on the basis of s
 
 
 # How to Run Locally
+**Clone the Repository**<br />
+.<br />
+git clone [link above]
+.<br />
 **Make sure you have Python with Tkinter installed**<br />
 .<br />
 pip install tk<br />

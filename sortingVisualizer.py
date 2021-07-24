@@ -8,7 +8,7 @@ module contains sortingVisualizer class
 from tkinter import *
 from tkinter import ttk
 import random
-from sorting import insertionSort, selectionSort, quickSort, bubbleSort
+from sorting import insertionSort, selectionSort, quickSort, bubbleSort, MergeSort
 
 
 class SortingVisualizer:
@@ -134,7 +134,12 @@ class SortingVisualizer:
             self.time.set(time)
             labelTime = Label(UI_frame, textvariable=self.time, bg="grey").grid(row=2, column=4, padx=5, pady=5, sticky=W)
             self.root.update()
-
+        elif (sorter == "Merge Sort"):
+            merge = MergeSort(self.data)
+            time = merge.mergeSort(self.data, lambda x, y: self.drawData(canvas, x, y), lambda: self.increment_comparisons(UI_frame, labelComparisons), speedScale.get())
+            self.time.set(time)
+            labelTime = Label(UI_frame, textvariable=self.time, bg="grey").grid(row=2, column=4, padx=5, pady=5, sticky=W)
+            self.root.update()
 
     # Generate New Array
     def generateNewArray(self, canvas, UI_frame, labelComparisons, labelTime, sizeEntry, minEntry, maxEntry):

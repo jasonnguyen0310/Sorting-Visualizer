@@ -131,7 +131,64 @@ def bubbleSort(arr, drawData, increment_comparisons, timeTick):
     drawData(arr, ['green' for x in range(len(arr))])
     return (end - start)
 
-# Merge sort
+class MergeSort:
+    def __init__(self, arr):
+        self.originalArray = arr.copy()
+    def mergeSort(self, arr, drawData, increment_comparisons, timeTick):
+        start = time.time()
+        if (len(arr) > 1):
+
+            # Finidng the mid of the array
+            mid = len(arr)//2
+
+            # Dividng the array elements
+            L = arr[:mid]
+
+            R = arr[mid:]
+
+            # Sorting the first half
+            self.mergeSort(L, drawData, increment_comparisons, timeTick)
+
+            # Sorting second half
+            self.mergeSort(R, drawData, increment_comparisons, timeTick)
+
+            i = j = k = 0
+
+            # Copy data to temp arrays L[] and R[]
+            while i < len(L) and j < len(R):
+                if L[i] < R[j]:
+                    arr_indL = self.originalArray.index(L[i])
+                    arr_indR = self.originalArray.index(R[j])
+                    increment_comparisons()
+                    drawData(self.originalArray, ['green' if x == arr_indL or x == arr_indR else 'red' for x in range(len(self.originalArray))])
+                    time.sleep(timeTick)
+                    arr[k] = L[i]
+                    i += 1
+                else:
+                    arr_indL = self.originalArray.index(L[i])
+                    arr_indR = self.originalArray.index(R[j])
+                    increment_comparisons()
+                    drawData(self.originalArray, ['green' if x== arr_indL or x == arr_indR else 'red' for x in range(len(self.originalArray))])
+                    time.sleep(timeTick)
+                    arr[k] = R[j]
+                    j += 1
+                k+=1
+
+            # Checking if any element was left
+            while i < len(L):
+                arr[k] = L[i]
+                i+=1
+                k+=1
+
+            while j < len(R):
+                arr[k] = R[j]
+                j+=1
+                k+=1
+
+        
+        end = time.time()
+        drawData(arr, ['green' for x in range(len(arr))])
+        return (end - start)
 
 
 

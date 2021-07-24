@@ -11,7 +11,7 @@ In the summer of 2021, I was taking a course on **Design and Analysis of Algorit
 I found that visualizing algorithms were useful in helping me understand how data was manipulated and what comparisions were happening during each iteration, which allowed me to grasp a better understanding of Time Complexity and Space Complexity. This README will be a documentation of what I learned, used, and benefitted from writing this program!
 
 # Time Complexity
-When writing algorithms counting primitive operations such as: indexing, comparing, mathematical operations etc are important in analyzing the time complexity. The more comparisons and array accesses, the longer your algorithm will take. I've implemented **6** algorithms in my visualizer each with the Big-O Time Complexities listed below:<br />
+When writing algorithms counting primitive operations such as: indexing, comparing, mathematical operations etc are important in analyzing the time complexity. The more comparisons and array accesses, the longer your algorithm will take. When analyzing algorithms from a big O perspective, its easier when we are just counting iterations (loops), however when recursion comes into the picture, it makes it a little more difficult to analyze the time complexity of an algorithm (I will touch on this later). I've implemented **6** algorithms in my visualizer each with the Big-O Time Complexities listed below:<br />
 
 **Insertion Sort:** O(n^2))<br /> 
 **Selection Sort:** O(n^2)<br /> 

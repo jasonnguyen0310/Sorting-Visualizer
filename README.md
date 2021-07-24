@@ -11,7 +11,20 @@ In the summer of 2021, I was taking a course on **Design and Analysis of Algorit
 I found that visualizing algorithms were useful in helping me understand how data was manipulated and what comparisions were happening during each iteration, which allowed me to grasp a better understanding of Time Complexity and Space Complexity. This README will be a documentation of what I learned, used, and benefitted from writing this program!
 
 # Time Complexity
-When writing algorithms (specifically sorting algorithms)
+When writing algorithms counting primitive operations such as: indexing, comparing, mathematical operations etc are important in analyzing the time complexity. The more comparisons and array accesses, the longer your algorithm will take. I've implemented **6** algorithms in my visualizer each with the Big-O Time Complexities listed below:<br />
+
+Insertion Sort: <br /> 
+Selection Sort: <br /> 
+Quick Sort: <br /> 
+Bubble Sort: <br /> 
+Merge Sort: <br /> 
+Heap Sort: <br /> 
+
+# Space Complexity
+In sorting algorithms, if you are allocating space to new arrays, new partitions, or new variables, this could take up more space.
+
+# Recursion
+
 
 # How to Run Locally
 **Make sure you have Python with Tkinter installed**<br />

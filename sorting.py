@@ -93,7 +93,7 @@ def partition(itemFromLeft, itemFromRight, medianIndex, arr, drawData, increment
 
 
 def quickSort(itemFromLeft, itemFromRight, arr, drawData, increment_comparisons, timeTick):
-    startTime = time.time()
+    start = time.time()
     if (itemFromLeft < itemFromRight):
         pivot_median = []
         for i in range(3):
@@ -107,9 +107,32 @@ def quickSort(itemFromLeft, itemFromRight, arr, drawData, increment_comparisons,
         quickSort(itemFromLeft, p-1, arr, drawData, increment_comparisons, timeTick)
         quickSort(p+1, itemFromRight, arr, drawData, increment_comparisons, timeTick)
     
-    endTime = time.time()
+    end = time.time()
     drawData(arr, ['green' for x in range(len(arr))])
-    return (endTime - startTime)
+    return (end- start)
+
+
+# Bubble Sort
+def bubbleSort(arr, drawData, increment_comparisons, timeTick):
+    start = time.time()
+    for i in range(1, len(arr)):
+        for j in range (0, len(arr) - 1):
+            drawData(arr, ['green' if x== j or x == j+1 else 'red' for x in range(len(arr))])
+            time.sleep(timeTick)
+            if arr[j] > arr[j+1]:
+                increment_comparisons()
+                drawData(arr, ['green' if x== j or x == j+1 else 'red' for x in range(len(arr))])
+                time.sleep(timeTick)
+                arr[j], arr[j+1]  = arr[j+1], arr[j]
+                drawData(arr, ['green' if x== j or x == j+1 else 'red' for x in range(len(arr))])
+                time.sleep(timeTick)
+    
+    end = time.time()
+    drawData(arr, ['green' for x in range(len(arr))])
+    return (end - start)
+
+# Merge sort
+
 
 
 

@@ -13,11 +13,11 @@ I found that visualizing algorithms were useful in helping me understand how dat
 # Time Complexity
 When writing algorithms counting primitive operations such as: indexing, comparing, mathematical operations etc are important in analyzing the time complexity. The more comparisons and array accesses, the longer your algorithm will take. I've implemented **6** algorithms in my visualizer each with the Big-O Time Complexities listed below:<br />
 
-Insertion Sort: <br /> 
-Selection Sort: <br /> 
-Quick Sort: <br /> 
-Bubble Sort: <br /> 
-Merge Sort: <br /> 
+Insertion Sort: O(n^2))<br /> 
+Selection Sort: O(n^2)<br /> 
+Quick Sort: O(n^2)<br /> 
+Bubble Sort: O(n^2) <br /> 
+Merge Sort: O(n log(n)) <br /> 
 Heap Sort: <br /> 
 
 # Space Complexity

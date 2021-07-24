@@ -21,7 +21,9 @@ When writing algorithms counting primitive operations such as: indexing, compari
 **Heap Sort:** O(n log(n)) <br /> 
 
 # Auxillary Space and Space Complexity
-In sorting algorithms, if you are allocating space to new arrays, new partitions, or new variables, this could take up more space.
+In sorting algorithms, if you are allocating space to new arrays, new partitions, or new variables, this could take up more space. The term Space Complexity is misused for Auxiliary Space at many places. Auxiliary Space is the extra space or temporary space used by an algorithm. Space Complexity of an algorithm is total space taken by the algorithm with respect to the input size. Space complexity includes both Auxiliary space and space used by input. 
+
+For example, if we want to compare standard sorting algorithms on the basis of space, then Auxiliary Space would be a better criteria than Space Complexity. Merge Sort uses O(n) auxiliary space, Insertion sort and Heap Sort use O(1) auxiliary space. Space complexity of all these sorting algorithms is O(n) though. 
 
 # Recursion
 

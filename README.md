@@ -28,6 +28,9 @@ For example, if we want to compare standard sorting algorithms on the basis of s
 # Recursion
 
 
+# Tkinter
+
+
 # How to Run Locally
 **Clone the Repository**<br />
 git clone [this repo](https://github.com/jasonnguyen0310/Sorting-Visualizer.git)<br />

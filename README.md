@@ -37,5 +37,7 @@ git clone [this repo](https://github.com/jasonnguyen0310/Sorting-Visualizer.git)
 .<br />
 pip install tk<br />
 .<br />
+**Run With Python**<br />
+.<br />
 python main.py<br />
 .<br />

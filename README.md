@@ -18,7 +18,7 @@ When writing algorithms counting primitive operations such as: indexing, compari
 **Quick Sort:** O(n^2)<br /> 
 **Bubble Sort:** O(n^2) <br /> 
 **Merge Sort:** O(n log(n)) <br /> 
-**Heap Sort:** <br /> 
+**Heap Sort:** O(n log(n)) <br /> 
 
 # Auxillary Space and Space Complexity
 In sorting algorithms, if you are allocating space to new arrays, new partitions, or new variables, this could take up more space.

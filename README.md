@@ -3,7 +3,7 @@ A sorting visualizer written in [Python](https://docs.python.org/3/)
 
 
 # Inspiration
-In the summer of 2021, I took a course on **Design and Analysis of Algorithms**. One of the major parts of the course was to get use to implementing and analyzing algorithms. This was difficult for someone who wasn't use to analyzing time and space from a asymptotic perspective. When the course covered sorting algorithm design and analysis, I saw a perfect opportunity to improve my algorithm implementation and analysis skills! I have seen many sorting visualizers written in different programming languages (some more aesthetic than others). I wrote my Sorting Visualizer in Python because it is the language I'm most comfortable with and seeking to master. I found that implementing sorting algorithms aid in understanding three key factors of **Algorithm Analysis**.<br /> 
+In the summer of 2021, I took a course on **Design and Analysis of Algorithms**. One of the major parts of the course was getting use to implementing and analyzing algorithms. This was difficult for someone who wasn't use to analyzing time and space from a asymptotic perspective. When the course covered sorting algorithm design and analysis, I saw a perfect opportunity to improve my algorithm implementation and analysis skills! I have seen many sorting visualizers written in different programming languages (some more aesthetic than others). I wrote my Sorting Visualizer in Python because it is the language I'm most comfortable with and seeking to master. I found that implementing sorting algorithms aid in understanding three key factors of **Algorithm Analysis**.<br /> 
 1. Time Complexity<br />
 2. Space Complexity<br />
 3. Recursion<br />

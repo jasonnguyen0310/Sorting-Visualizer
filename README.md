@@ -8,7 +8,7 @@ In the summer of 2021, I took a course on **Design and Analysis of Algorithms**.
 2. Space Complexity<br />
 3. Recursion<br />
 
-Visualizing algorithms were useful in helping me understand how data was arranged and what comparisions were happening during each iteration, which allowed me to grasp a better understanding of Algorithm Behavior and Time Complexity. This README will be a documentation of what I learned, used, and benefitted from writing this program!
+Visualizing algorithms were useful in helping me understand how data was arranged and what comparisions were happening during each iteration, which allowed me to grasp a better understanding of algorithm behavior and time complexity. This README will be a documentation of what I learned, used, and benefitted from writing this program!
 
 # Time Complexity
 When writing algorithms, counting primitive operations such as: indexing, comparing, and mathematical operations are important in analyzing the time complexity. The more comparisons and array accesses, the longer your algorithm will take. When analyzing algorithms from a big-O perspective, its easier when we are just counting iterations (loops), however when recursion comes into the picture, it makes it a little more difficult to analyze the time complexity of an algorithm (I will touch on this later). I've implemented **6** algorithms in my visualizer each with the Big-O Time Complexities listed below:<br />
@@ -26,10 +26,12 @@ In sorting algorithms, if you are allocating space to new arrays, new partitions
 For example, if we want to compare standard sorting algorithms on the basis of space, then Auxiliary Space would be a better criteria than Space Complexity. Merge Sort uses O(n) auxiliary space, Insertion sort and Heap Sort use O(1) auxiliary space. Space complexity of all these sorting algorithms is O(n) though. 
 
 # Recursion
-Recursive algorithms are quite elegant. Analyzing the running time of a recurisve algorithm takes a bit of additional work. In particular, to analyze such a running time, we use a **recurrence equation**. In mathematics, a recurrence relation is an equation that recursively defines a sequence or multidimensional array of values, once one or more initial terms of the same function are given; each further term of the sequence or array is defined as a function of the preceding terms of the same function. To analyze the time complexity of recursive algorithms such as Quick Sort and Merge Sort we must use their recurrence equation and solve for the running time (when the recursion stack reaches it's last recursive call - (n-1))
+Recursive algorithms are quite elegant. However, analyzing the running time of a recursive algorithm takes a bit of additional work. In particular, to analyze such a running time, we use a **recurrence equation**. In mathematics, a recurrence relation is an equation that recursively defines a sequence or multidimensional array of values, once one or more initial terms of the same function are given; each further term of the sequence or array is defined as a function of the preceding terms of the same function. To analyze the time complexity of recursive algorithms such as Quick Sort and Merge Sort we must use their recurrence equation and solve for the running time (when the recursion stack reaches it's last recursive call - (n-1))
 
 # Visualizing with Tkinter
+Here is the [Tkinter Documentation](https://docs.python.org/3/library/tk.html) 
 
+Front-end and Graphical User Interfaces aren't my forte, however creating a sorting visualizer with a windowing toolkit such as Tkinter refreshed my memory on specifics that are important when designing GUIs. Using a library such as Tkinter is quite simple, just look through the documentation and find what you need from the library and learn how to use that feature! The main struggle was brushing up on my geometry skills and understanding dimensions.
 
 # How to Run Locally
 **Clone the Repository**<br />

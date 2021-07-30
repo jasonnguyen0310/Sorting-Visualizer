@@ -31,7 +31,7 @@ Recursive algorithms are quite elegant. However, analyzing the running time of a
 # Visualizing with Tkinter
 Here is the [Tkinter Documentation](https://docs.python.org/3/library/tk.html) 
 
-Front-end and graphical user interface design aren't my forte, however creating a sorting visualizer with a windowing toolkit such as Tkinter freshened up my memory on specifics that are important when designing GUIs. Using a library such as Tkinter is quite simple, just look through the documentation and find what you need from the library and learn how to use that feature! The main struggle was brushing up on my geometry skills and understanding dimensions.
+Front-end and graphical user interface design aren't my forte, however creating a sorting visualizer with a windowing toolkit such as Tkinter freshened up my memory on skills that are important when designing GUIs. Using a library such as Tkinter is quite simple, just look through the documentation and find what you need from the library and learn how to use that feature! The main struggle was brushing up on my geometry skills and understanding dimensions.
 
 # How to Run Locally
 **Clone the Repository**<br />
